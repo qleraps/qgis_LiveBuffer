@@ -1,0 +1,24 @@
+[general]
+name=LiveBuffer
+description=Draw a line on the map and see a live buffer preview; the result is saved as a polygon.
+description[da]=Tegn en linje på kortet og se en live forhåndsvisning af bufferen; resultatet gemmes som en polygon.
+version=1.1
+changelog=1.1 - Danish/English user interface that follows the QGIS language setting. Fixed: the tool could not be activated in QGIS 4.
+about=LiveBuffer adds a map tool for drawing a line directly on the canvas. While you move the mouse, a live preview of the buffer around the line is shown. The buffer distance (in metres) and an optional auto-select behaviour are controlled from the plugin toolbar. When you finish the line (right-click), the final buffer is calculated and stored as a polygon in a memory layer, or in the active layer if it is a suitable polygon layer.
+about[da]=LiveBuffer tilføjer et kortværktøj til at tegne en linje direkte på kortet. Mens du flytter musen, vises en live forhåndsvisning af bufferen omkring linjen. Bufferafstanden (i meter) og en valgfri autoselect-funktion styres fra pluginets værktøjslinje. Når du afslutter linjen (højreklik), beregnes den endelige buffer og gemmes som en polygon i et memory-lag eller i det aktive lag, hvis det er et egnet polygonlag.
+tags=buffer,live,line,polygon,digitizing
+tags[da]=buffer,live,linje,polygon,digitalisering
+category=Vector
+qgisMinimumVersion=3.0
+qgisMaximumVersion=4.99
+author=qLER ApS
+email=support@qler.dk
+license=GPL-2.0-or-later
+hasProcessingProvider=no
+icon=icon.png
+experimental=True
+deprecated=False
+server=False
+homepage=
+tracker=
+repository=
