@@ -1,6 +1,6 @@
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QColor
-from qgis.core import QgsWkbTypes, QgsPointXY, QgsGeometry, QgsFeature, QgsVectorLayer, QgsProject
+from qgis.core import Qgis, QgsWkbTypes, QgsPointXY, QgsGeometry, QgsFeature, QgsVectorLayer, QgsProject
 from qgis.gui import QgsMapTool, QgsRubberBand
 
 from .i18n import tr
@@ -21,11 +21,11 @@ class LiveBufferMapTool(QgsMapTool):
         self.points = []
         self.output_layer = None  # memory-lag oprettet on-demand, genbruges mellem tegninger
 
-        self.line_band = QgsRubberBand(self.canvas, QgsWkbTypes.LineGeometry)
+        self.line_band = QgsRubberBand(self.canvas, Qgis.GeometryType.Line)
         self.line_band.setColor(QColor(0, 90, 200, 220))
         self.line_band.setWidth(2)
 
-        self.buffer_band = QgsRubberBand(self.canvas, QgsWkbTypes.PolygonGeometry)
+        self.buffer_band = QgsRubberBand(self.canvas, Qgis.GeometryType.Polygon)
         self.buffer_band.setColor(QColor(0, 150, 230, 60))
         self.buffer_band.setStrokeColor(QColor(0, 120, 220, 180))
         self.buffer_band.setWidth(1)
@@ -45,8 +45,8 @@ class LiveBufferMapTool(QgsMapTool):
 
     def _reset_geometry(self):
         self.points = []
-        self.line_band.reset(QgsWkbTypes.LineGeometry)
-        self.buffer_band.reset(QgsWkbTypes.PolygonGeometry)
+        self.line_band.reset(Qgis.GeometryType.Line)
+        self.buffer_band.reset(Qgis.GeometryType.Polygon)
 
     # --- Museinteraktion ---------------------------------------------------
 
@@ -75,7 +75,7 @@ class LiveBufferMapTool(QgsMapTool):
 
     def _update_line_band(self, extra_point=None):
         pts = self._current_polyline(extra_point)
-        self.line_band.reset(QgsWkbTypes.LineGeometry)
+        self.line_band.reset(Qgis.GeometryType.Line)
         if len(pts) == 1:
             self.line_band.setToGeometry(QgsGeometry.fromPointXY(pts[0]), None)
         elif len(pts) >= 2:
@@ -83,7 +83,7 @@ class LiveBufferMapTool(QgsMapTool):
 
     def _update_buffer_preview(self, extra_point=None):
         pts = self._current_polyline(extra_point)
-        self.buffer_band.reset(QgsWkbTypes.PolygonGeometry)
+        self.buffer_band.reset(Qgis.GeometryType.Polygon)
         if len(pts) < 2:
             return
         geom = QgsGeometry.fromPolylineXY(pts)
@@ -123,7 +123,7 @@ class LiveBufferMapTool(QgsMapTool):
         if (
             isinstance(active, QgsVectorLayer)
             and active.isValid()
-            and QgsWkbTypes.geometryType(active.wkbType()) == QgsWkbTypes.PolygonGeometry
+            and QgsWkbTypes.geometryType(active.wkbType()) == Qgis.GeometryType.Polygon
         ):
             return active
 

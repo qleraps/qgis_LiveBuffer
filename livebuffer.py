@@ -1,7 +1,12 @@
 import os
 
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QDoubleSpinBox, QCheckBox, QLabel
+from qgis.PyQt.QtWidgets import QDoubleSpinBox, QCheckBox, QLabel
+
+try:
+    from qgis.PyQt.QtWidgets import QAction
+except ImportError:  # Qt6 / QGIS 4
+    from qgis.PyQt.QtGui import QAction
 
 from .i18n import tr
 from .map_tool import LiveBufferMapTool
